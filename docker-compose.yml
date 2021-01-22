@@ -1,0 +1,56 @@
+version: '3'
+services:
+  postgres:
+      build: ./postgres-image
+      image: postgres/postgres:11-alpine
+      container_name: postgres
+      ports:
+        - "5432:5432"
+      expose:
+        - "5432"
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=postgres
+      volumes:
+        - ${PWD}/postgres-image:/docker-entrypoint-initdb.d
+  jobmanager:
+    build: .
+    image: pyflink/pyflink:1.11.2-scala_2.11
+    container_name: jobmanager
+    volumes:
+      - .:/opt/pyflink-nlp
+    hostname: "jobmanager"
+    expose:
+      - "6123"
+    ports:
+      - "8081:8081"
+    command: jobmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  taskmanager:
+    image: pyflink/pyflink:1.11.2-scala_2.11
+    container_name: taskmanager
+    volumes:
+    - .:/opt/pyflink-nlp
+    expose:
+      - "6121"
+      - "6122"
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    links:
+      - jobmanager:jobmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  superset:
+    build: ./superset-image
+    image: superset/superset:0.37.2
+    container_name: superset
+    volumes:
+      - ./superset-image/db-postgres.yaml:/db-postgres.yaml
+      - ./superset-image/dashboard-flink-user.json:/dashboard-flink-user.json
+    ports:
+      - "8088:8088"
+    depends_on:
+      - postgres

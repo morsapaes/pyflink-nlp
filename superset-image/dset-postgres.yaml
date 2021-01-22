@@ -1,0 +1,20 @@
+- columns:
+  - column_name: message_date
+    is_dttm: true
+    type: TIMESTAMP(3) WITHOUT TIME ZONE
+  - column_name: topic_description
+    type: VARCHAR(50)
+  - column_name: topic
+    type: VARCHAR(2)
+  - column_name: message_from_name
+    type: VARCHAR
+  - column_name: message_id
+    type: VARCHAR
+  main_dttm_col: message_date
+  metrics:
+  - expression: COUNT(*)
+    metric_name: count
+    metric_type: count
+    verbose_name: COUNT(*)
+  schema: perceval
+  table_name: flink_user_ml_topics

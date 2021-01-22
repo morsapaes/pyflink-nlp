@@ -1,0 +1,28 @@
+databases:
+- database_name: postgres
+  extra: "{\r\n    \"metadata_params\": {},\r\n    \"engine_params\": {},\r\n    \"\
+    metadata_cache_timeout\": {},\r\n    \"schemas_allowed_for_csv_upload\": []\r\n\
+    }"
+  sqlalchemy_uri: postgresql+psycopg2://postgres:postgres@postgres:5432/postgres
+  tables:
+  - columns:
+    - column_name: message_date
+      is_dttm: true
+      type: TIMESTAMP(3) WITHOUT TIME ZONE
+    - column_name: topic_description
+      type: VARCHAR(50)
+    - column_name: topic
+      type: VARCHAR(2)
+    - column_name: message_from_name
+      type: VARCHAR
+    - column_name: message_id
+      type: VARCHAR
+    main_dttm_col: message_date
+    metrics:
+    - expression: COUNT(*)
+      metric_name: count
+      metric_type: count
+      verbose_name: COUNT(*)
+    params: '{"remote_id": 1, "database_name": "postgres", "import_time": 1611321117}'
+    schema: perceval
+    table_name: flink_user_ml_topics
