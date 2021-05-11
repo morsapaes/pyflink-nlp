@@ -29,7 +29,9 @@ What are people asking more frequently about in the Flink User Mailing List? How
 
 ### Some Background
 
-The model in this demo was trained using a popular topic modeling algorithm called [LDA](https://towardsdatascience.com/lda-topic-modeling-an-explanation-e184c90aadcd) and [Gensim](https://radimrehurek.com/gensim/), a Python library with a good implementation of the algorithm. The trained model knows to some extent what combination of words are associated with certain topics, and can just be passed as a dependency to PyFlink. Don't trust the model. :japanese_ogre:
+The model in this demo was trained using a popular topic modeling algorithm called [LDA](https://towardsdatascience.com/lda-topic-modeling-an-explanation-e184c90aadcd) and [Gensim](https://radimrehurek.com/gensim/), a Python library with a good implementation of the algorithm. The trained model knows to some extent what combination of words are associated with certain topics, and can just be passed as a dependency to PyFlink. 
+
+Don't trust the model. :japanese_ogre:
 
 ### Submitting the PyFlink job
 
