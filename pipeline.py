@@ -72,6 +72,9 @@ if __name__ == '__main__':
   env.set_parallelism(1)
   t_env = StreamTableEnvironment.create(env)
 
+  t_env.add_python_file("/opt/pyflink-nlp/tokenizer.py")
+  t_env.add_python_archive(archive_path="/opt/pyflink-nlp/lda_model.zip#model", target_dir=None)
+
   config = t_env.get_config().get_configuration()
   config.set_string("taskmanager.memory.task.off-heap.size", "80mb") #512mb
 

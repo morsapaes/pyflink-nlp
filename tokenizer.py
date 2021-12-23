@@ -7,7 +7,7 @@ from gensim.parsing.preprocessing import STOPWORDS
 
 def tokenize(msg):
 
-    nlp = spacy.load('en', disable=['parser', 'ner'])
+    nlp = spacy.load('en_core_web_sm', disable=['parser', 'ner'])
 
     msg = " ".join([token.lemma_ for token in nlp(msg)])
 
